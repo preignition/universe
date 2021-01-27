@@ -120,7 +120,7 @@ export default function(service) {
           column.type = getType(sample)
         }
 
-        return dimension.make(column.key, column.type, column.complex, column.missingValue)
+        return dimension.make(column.key, column.array ? 'array' : column.type, column.complex, column.missingValue)
       })
       .then(function(dim) {
         column.dimension = dim

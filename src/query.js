@@ -32,6 +32,7 @@ export default function(service) {
       // Original query passed in to query method
       original: queryObj,
       hash: queryHash,
+      array: queryObj.array
     }
 
     // Default queryObj
@@ -61,7 +62,7 @@ export default function(service) {
       return service.column({
           key: query.original.groupBy,
           type: _.isUndefined(query.type) ? null : query.type,
-          array: Boolean(query.array),
+          array: !!query.array,
           missingValue: query.original.missingValue
         })
         .then(function() {
@@ -183,6 +184,7 @@ export default function(service) {
         crossfilter: service.cf,
 
         // parent Information
+        array: parent.array,
         parent: parent,
         column: parent.column,
         dimension: parent.dimension,
