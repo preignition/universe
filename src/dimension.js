@@ -12,7 +12,7 @@ export default function(service) {
   }
 
   function make(key, type, complex, missingValue = '__missing__') {
-    var accessor = makeAccessor(key, complex, missingValue)
+    var accessor = makeAccessor(key, complex, type === 'array' ? [missingValue] : missingValue)
     // Promise.resolve will handle promises or non promises, so
     // this crossfilter async is supported if present
     return Promise.resolve(service.cf.dimension(accessor, type === 'array'))
