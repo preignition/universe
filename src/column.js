@@ -32,7 +32,7 @@ export default function(service) {
       if (_.isArray(d)) {
         return !_.xor(c.key, d).length
       }
-      return c.key === d
+      return c.key === d || c.keyStringified === d
     })
   }
 
@@ -55,6 +55,12 @@ export default function(service) {
   function makeColumn(d) {
     var column = _.isObject(d) ? d : {
       key: d,
+    }
+
+    // Note(cg): we need to stringify function keys, otherwhise
+    // those columns are never found.
+    if (typeof column.key === 'function') {
+      column.keyStringified = column.key.toString();
     }
 
     var existing = findColumn(column.key)
